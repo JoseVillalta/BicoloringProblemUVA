@@ -15,7 +15,7 @@ namespace BicoloringTests
 		TEST_METHOD(TestMethod1)
 		{
 			
-			ifstream infile("input1.txt");
+			ifstream infile("input.txt");
 			ofstream outputfile;
 			outputfile.open("output.txt");
 			bool running = true;

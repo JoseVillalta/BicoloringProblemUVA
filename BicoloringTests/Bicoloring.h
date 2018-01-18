@@ -41,7 +41,7 @@ public:
 		m_g->nvertices = 0;
 		bipartate = true;
 
-		for (int i = 1; i < MAXV; i++) m_g->edges[i] = nullptr;
+		for (int i = 0; i < MAXV; i++) m_g->edges[i] = nullptr;
 	}
 	void InsertEdge(int x, int y, bool directed)
 	{
@@ -61,7 +61,7 @@ public:
 	}
 	void InitSearch()
 	{
-		for (int i = 1; i <= m_g->nvertices; i++)
+		for (int i = 0; i <= m_g->nvertices; i++)
 		{
 			discovered[i] = false;
 			processed[i] = false;
@@ -118,14 +118,14 @@ public:
 	void TwoColor()
 	{
 		int i;
-		for (i = 1; i < m_g->nvertices; i++)
+		for (i = 0; i < m_g->nvertices; i++)
 		{
 			color[i] = COLOR_UNCOLORED;
 		}
 
 		bipartate = true;
 
-		for (i = 1; i < m_g->nvertices; i++)
+		for (i = 0; i < m_g->nvertices; i++)
 		{
 			if (discovered[i] == false)
 			{
