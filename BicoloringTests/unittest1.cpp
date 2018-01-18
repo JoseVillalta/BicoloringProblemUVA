@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 #include "Bicoloring.h"
 #include "fstream"
+#include "FileCompare.h"
+#include "TestWithInputFiles.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -12,43 +14,18 @@ namespace BicoloringTests
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(DebugFile)
 		{
 			
-			ifstream infile("input.txt");
-			ofstream outputfile;
-			outputfile.open("output.txt");
-			bool running = true;
-			while (running)
-			{
-				auto graph = new BicoloringGraph();
-				graph->InitGraph(true);
-				int nvertices;
-				infile >> nvertices;
-				if (nvertices == 0) break;
-				graph->m_g->nvertices = nvertices;
-				graph->InitSearch();
-				int nedges;
-				infile >> nedges;
-				while (nedges > 0)
-				{
-					int x, y;
-					infile >> x >> y;
-					graph->InsertEdge(x, y, true);
-					nedges--;
-				}
-				graph->TwoColor();
-				if (graph->bipartate)
-				{
-					outputfile << "BICOLORABLE." << endl;
-				}
-				else
-				{
-					outputfile << "NOT BICOLORABLE." << endl;
-				}
-				delete graph;
-			}
-
+			TestWithFiles("input.txt", "output.txt");
+			bool match = CompareFiles("output.txt", "Expected.txt");
+			Assert::AreEqual(true, match);
+		}
+		TEST_METHOD(DebugFile2)
+		{
+			TestWithFiles("input2.txt", "output2.txt");
+			bool match = CompareFiles("output2.txt", "Expected2.txt");
+			Assert::AreEqual(true, match);
 		}
 		TEST_METHOD(NotBicoloring)
 		{
@@ -68,6 +45,48 @@ namespace BicoloringTests
 			Assert::AreEqual(false, graph->bipartate);
 			
 		}
+		TEST_METHOD(NotBicoloring2)
+		{
+			auto graph = new BicoloringGraph();
+			graph->InitGraph(true);
+			graph->m_g->nvertices = 3;
+			graph->InitSearch();
+			graph->InsertEdge(0, 1, true);
+			graph->InsertEdge(1, 2, true);
+			graph->InsertEdge(2, 0, true);
+			
+			graph->TwoColor();
+			Assert::AreEqual(false, graph->bipartate);
+		}
+		TEST_METHOD(Bicoloring)
+		{
+			auto graph = new BicoloringGraph();
+			graph->InitGraph(true);
+			graph->m_g->nvertices = 3;
+			graph->InitSearch();
+			graph->InsertEdge(0, 1, true);
+			graph->InsertEdge(1, 2, true);
 
+			graph->TwoColor();
+			Assert::AreEqual(true, graph->bipartate);
+		}
+		TEST_METHOD(Bicolorable2)
+		{
+			auto graph = new BicoloringGraph();
+			graph->InitGraph(true);
+			graph->m_g->nvertices = 9;
+			graph->InitSearch();
+			graph->InsertEdge(0, 1, true);
+			graph->InsertEdge(0, 2, true);
+			graph->InsertEdge(0, 3, true);
+			graph->InsertEdge(0, 4, true);
+			graph->InsertEdge(0, 5, true);
+			graph->InsertEdge(0, 6, true);
+			graph->InsertEdge(0, 7, true);
+			graph->InsertEdge(0, 8, true);
+
+			graph->TwoColor();
+			Assert::AreEqual(true, graph->bipartate);
+		}
 	};
 }
