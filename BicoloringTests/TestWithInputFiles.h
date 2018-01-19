@@ -26,7 +26,7 @@ void TestWithFiles(string inputFile, string outputFile)
 		{
 			int x, y;
 			infile >> x >> y;
-			graph->InsertEdge(x, y, true);
+			graph->InsertEdge(x, y, false);
 			nedges--;
 		}
 		graph->TwoColor();

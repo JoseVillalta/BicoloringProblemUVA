@@ -2,11 +2,13 @@
 
 #include "stdafx.h"
 #include "iostream"
+#include "fstream"
 #include <queue>
 #define MAXV 200
 #define COLOR_UNCOLORED -1
 #define COLOR_WHITE 0
 #define COLOR_BLACK 1
+
 
 using namespace std;
 

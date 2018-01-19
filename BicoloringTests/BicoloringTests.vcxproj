@@ -169,9 +169,6 @@
     <ClCompile Include="unittest1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="BicoloringTests.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="Expected.txt" />
     <Text Include="Expected2.txt" />
     <Text Include="input.txt" />
